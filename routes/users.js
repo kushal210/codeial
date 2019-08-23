@@ -22,9 +22,12 @@ router.post('/create',(req,res)=> {
         return res.redirect('back');
     }
     User.findOne({email: req.body.email},(err,user)=>{
-        if(err){console.log('Error in finding user in signing up'); return;}
+        if(err){
+            console.log('Error in finding user in signing up'); 
+            return;
+        }
         if(!user){
-            User.createIndexes(req.body,(err,user)=>{
+            User.create(req.body,(err,user)=>{
                 if(err){console.log('Error in creating user in signing up'); return;}
                 // the user is created...
                 return res.redirect('/user/sign-in');
